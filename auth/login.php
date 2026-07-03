@@ -1,12 +1,11 @@
 <?php
 require_once __DIR__ . '/../config/koneksi.php';
+require_once __DIR__ . '/../models/Admin.php';
  
-// Jika session belum jalan (session.php akan redirect kalau timeout, jadi start manual dulu)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
  
-// Jika sudah login, langsung arahkan ke dashboard
 if (isset($_SESSION['id_admin'])) {
     header('Location: ../pages/dashboard.php');
     exit;
@@ -14,7 +13,7 @@ if (isset($_SESSION['id_admin'])) {
  
 $pesan_error = '';
  
-// Proses saat form disubmit
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -22,17 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === '' || $password === '') {
         $pesan_error = 'Username dan password wajib diisi.';
     } else {
-        // Prepared statement - anti SQL Injection
-        $stmt = mysqli_prepare($koneksi, "SELECT id, username, password, nama, role FROM admin WHERE username = ? LIMIT 1");
-        mysqli_stmt_bind_param($stmt, 's', $username);
-        mysqli_stmt_execute($stmt);
-        $hasil = mysqli_stmt_get_result($stmt);
-        $data_admin = mysqli_fetch_assoc($hasil);
-        mysqli_stmt_close($stmt);
+        $adminModel = new Admin($koneksi);
+        $data_admin = $adminModel->cariByUsername($username);
  
         if ($data_admin && password_verify($password, $data_admin['password'])) {
-            // Login berhasil - simpan data ke session
-            session_regenerate_id(true); // cegah session fixation
+            session_regenerate_id(true);
             $_SESSION['id_admin'] = $data_admin['id'];
             $_SESSION['username']  = $data_admin['username'];
             $_SESSION['nama']      = $data_admin['nama'];
@@ -48,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
  
-// Tampilkan pesan tambahan dari redirect (misal session habis)
 if (isset($_GET['pesan']) && $_GET['pesan'] === 'session_habis') {
     $pesan_error = 'Sesi Anda telah habis, silakan login kembali.';
 }

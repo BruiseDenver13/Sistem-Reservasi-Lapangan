@@ -1,19 +1,14 @@
 <?php
-require_once __DIR__ . '/../config/session.php'; // sudah handle session_start() + timeout
+require_once __DIR__ . '/../config/session.php';
  
-// 1. Cek apakah user sudah login
 if (!isset($_SESSION['id_admin'])) {
     header('Location: ' . dirname($_SERVER['PHP_SELF'], 2) . '/auth/login.php');
     exit;
 }
  
-/**
- * @param array $role_diizinkan Contoh: ['Superadmin', 'Admin']
- */
 function cek_role(array $role_diizinkan): void
 {
     if (!in_array($_SESSION['role'], $role_diizinkan, true)) {
-        // Role tidak diizinkan akses halaman ini
         http_response_code(403);
         echo '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">
               <title>Akses Ditolak</title>
