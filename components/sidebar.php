@@ -1,16 +1,9 @@
 <?php
-/**
- * File: components/sidebar.php
- * Fungsi: Menampilkan menu sidebar admin, disesuaikan dengan role yang sedang login (RBAC)
- * Catatan: File ini HARUS dipanggil setelah cek_session.php, karena butuh $_SESSION['role']
- */
- 
-$role_aktif   = $_SESSION['role'] ?? '';
+
+$role_aktif    = $_SESSION['role'] ?? '';
 $halaman_aktif = basename($_SERVER['PHP_SELF']); // untuk highlight menu aktif
- 
-/**
- * Helper kecil untuk menandai menu yang sedang aktif
- */
+
+
 function menu_aktif(string $nama_file, string $halaman_aktif): string
 {
     return $nama_file === $halaman_aktif ? 'active' : '';
@@ -18,15 +11,14 @@ function menu_aktif(string $nama_file, string $halaman_aktif): string
 ?>
 <nav id="sidebar" class="bg-dark text-white p-3" style="width: 240px; min-height: 100vh;">
     <h5 class="mb-4">⚽ Futsal Admin</h5>
- 
+
     <ul class="nav nav-pills flex-column gap-1">
-        <!-- Dashboard: semua role -->
         <li class="nav-item">
             <a href="dashboard.php" class="nav-link text-white <?= menu_aktif('dashboard.php', $halaman_aktif) ?>">
                 <i class="bi bi-speedometer2 me-2"></i>Dashboard
             </a>
         </li>
- 
+
         <?php if (in_array($role_aktif, ['Superadmin', 'Admin'], true)): ?>
             <li class="nav-item">
                 <a href="lapangan.php" class="nav-link text-white <?= menu_aktif('lapangan.php', $halaman_aktif) ?>">
@@ -44,8 +36,7 @@ function menu_aktif(string $nama_file, string $halaman_aktif): string
                 </a>
             </li>
         <?php endif; ?>
- 
-        <!-- Reservasi & Pembayaran: semua role -->
+
         <li class="nav-item">
             <a href="reservasi.php" class="nav-link text-white <?= menu_aktif('reservasi.php', $halaman_aktif) ?>">
                 <i class="bi bi-journal-check me-2"></i>Reservasi
@@ -56,7 +47,7 @@ function menu_aktif(string $nama_file, string $halaman_aktif): string
                 <i class="bi bi-credit-card me-2"></i>Verifikasi Pembayaran
             </a>
         </li>
- 
+
         <?php if (in_array($role_aktif, ['Superadmin', 'Admin'], true)): ?>
             <li class="nav-item">
                 <a href="laporan.php" class="nav-link text-white <?= menu_aktif('laporan.php', $halaman_aktif) ?>">
@@ -64,7 +55,7 @@ function menu_aktif(string $nama_file, string $halaman_aktif): string
                 </a>
             </li>
         <?php endif; ?>
- 
+
         <?php if ($role_aktif === 'Superadmin'): ?>
             <li class="nav-item">
                 <a href="kelola_user.php" class="nav-link text-white <?= menu_aktif('kelola_user.php', $halaman_aktif) ?>">
