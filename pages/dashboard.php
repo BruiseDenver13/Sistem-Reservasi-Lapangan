@@ -1,13 +1,4 @@
 <?php
-/**
- * File: pages/dashboard.php
- * Fungsi: Dashboard admin - statistik ringkas + grafik reservasi 7 hari terakhir
- * Catatan: Query di sini masih query agregat sederhana (COUNT/SUM), jadi ditulis
- *          langsung pakai mysqli di halaman ini (belum lewat model), karena model
- *          Lapangan/Reservasi/Pembayaran belum dibuat. Nanti setelah model-model itu
- *          ada, query ini bisa dipindah jadi method di masing-masing model.
- */
- 
 require_once __DIR__ . '/../auth/cek_session.php';
 require_once __DIR__ . '/../config/koneksi.php';
  
