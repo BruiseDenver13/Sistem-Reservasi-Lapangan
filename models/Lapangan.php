@@ -51,6 +51,16 @@ class Lapangan
         return $data;
     }
 
+    public function ambilUntukDropdown(): array
+{
+    $hasil    = mysqli_query($this->koneksi, "SELECT id, nama FROM lapangan WHERE status = 'aktif' ORDER BY nama ASC");
+    $dropdown = [];
+    while ($baris = mysqli_fetch_assoc($hasil)) {
+        $dropdown[$baris['id']] = $baris['nama'];
+    }
+    return $dropdown;
+}
+
     public function tambah(int $idKategori, string $nama, float $hargaPerJam, ?string $foto, string $keterangan, string $status): bool
     {
         $stmt = mysqli_prepare($this->koneksi, "
