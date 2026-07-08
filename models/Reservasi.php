@@ -104,4 +104,36 @@ class Reservasi
         mysqli_stmt_close($stmt);
         return $berhasil;
     }
+
+    public function tambahPublik(int $idJadwal, string $namaPemesan, string $noHp, float $totalBayar, string $keterangan): bool
+{
+    $kode = $this->buatKode();
+    $stmt = mysqli_prepare($this->koneksi, "
+        INSERT INTO reservasi (kode, id_jadwal, nama_pemesan, no_hp, total_bayar, status, keterangan, id_admin)
+        VALUES (?, ?, ?, ?, ?, 'menunggu', ?, NULL)
+    ");
+    mysqli_stmt_bind_param($stmt, 'sissds', $kode, $idJadwal, $namaPemesan, $noHp, $totalBayar, $keterangan);
+    $berhasil = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return $berhasil ? $kode : false;
+}
+
+public function cariByKode(string $kode): ?array
+{
+    $stmt = mysqli_prepare($this->koneksi, "
+        SELECT r.kode, r.nama_pemesan, r.no_hp, r.total_bayar, r.status,
+               j.tanggal, j.jam_mulai, j.jam_selesai, l.nama AS nama_lapangan
+        FROM reservasi r
+        JOIN jadwal j ON r.id_jadwal = j.id
+        JOIN lapangan l ON j.id_lapangan = l.id
+        WHERE r.kode = ?
+        LIMIT 1
+    ");
+    mysqli_stmt_bind_param($stmt, 's', $kode);
+    mysqli_stmt_execute($stmt);
+    $data = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    mysqli_stmt_close($stmt);
+    return $data ?: null;
+ }
+
 }
