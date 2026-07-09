@@ -50,6 +50,14 @@ require_once __DIR__ . '/../components/navbar.php';
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">Filter</button>
     </div>
+
+    <div class="col-auto">
+    <a href="../process/export_pdf.php?dari=<?= urlencode($dari) ?>&sampai=<?= urlencode($sampai) ?>"
+       class="btn btn-outline-secondary">
+        <i class="bi bi-file-earmark-pdf me-1"></i>Export PDF
+    </a>
+</div>
+
 </form>
 
 <div class="card shadow-sm mb-3">
