@@ -18,7 +18,7 @@ $daftar_lapangan = $lapanganModel->ambilYangAktif();
 <body>
 
 <nav class="navbar navbar-dark bg-dark px-4">
-    <span class="navbar-brand">⚽ Futsal Reservasi</span>
+    <span class="navbar-brand"> Futsal Reservasi</span>
     <div class="d-flex gap-2">
         <a href="jadwal.php" class="btn btn-outline-light btn-sm">Cek Jadwal</a>
         <a href="reservasi.php" class="btn btn-outline-light btn-sm">Booking</a>

@@ -46,7 +46,7 @@ require_once __DIR__ . '/../components/sidebar.php';
 require_once __DIR__ . '/../components/navbar.php';
 ?>
  
-<h4 class="mb-4">Selamat datang, <?= htmlspecialchars($_SESSION['nama']) ?> 👋</h4>
+<h4 class="mb-4">Selamat datang, <?= htmlspecialchars($_SESSION['nama']) ?> </h4>
  
 <div class="row g-3 mb-4">
     <div class="col-md-3">

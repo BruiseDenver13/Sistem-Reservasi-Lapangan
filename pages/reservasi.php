@@ -80,24 +80,40 @@ require_once __DIR__ . '/../components/navbar.php';
                             <span class="badge <?= $warna ?>"><?= htmlspecialchars($baris['status']) ?></span>
                         </td>
                         <td class="text-end">
-                            <?php if ($baris['status'] === 'dikonfirmasi'): ?>
-                                <form method="POST" action="../process/reservasi_process.php" class="d-inline">
-                                    <input type="hidden" name="aksi" value="selesai">
-                                    <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
-                                    <button type="submit" class="btn btn-sm btn-outline-success" title="Tandai selesai">
-                                        <i class="bi bi-check-lg"></i>
-                                    </button>
-                                </form>
-                                <form method="POST" action="../process/reservasi_process.php" class="d-inline"
-                                      onsubmit="return confirm('Batalkan reservasi ini? Jadwal akan kembali tersedia.');">
-                                    <input type="hidden" name="aksi" value="batalkan">
-                                    <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Batalkan">
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
-                            <?php endif; ?>
-                        </td>
+    <?php if ($baris['status'] === 'menunggu'): ?>
+        <form method="POST" action="../process/reservasi_process.php" class="d-inline">
+            <input type="hidden" name="aksi" value="konfirmasi">
+            <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
+            <button type="submit" class="btn btn-sm btn-outline-primary" title="Konfirmasi">
+                <i class="bi bi-check2-circle"></i> Konfirmasi
+            </button>
+        </form>
+        <form method="POST" action="../process/reservasi_process.php" class="d-inline"
+              onsubmit="return confirm('Batalkan reservasi ini? Jadwal akan kembali tersedia.');">
+            <input type="hidden" name="aksi" value="batalkan">
+            <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
+            <button type="submit" class="btn btn-sm btn-outline-danger" title="Batalkan">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </form>
+    <?php elseif ($baris['status'] === 'dikonfirmasi'): ?>
+        <form method="POST" action="../process/reservasi_process.php" class="d-inline">
+            <input type="hidden" name="aksi" value="selesai">
+            <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
+            <button type="submit" class="btn btn-sm btn-outline-success" title="Tandai selesai">
+                <i class="bi bi-check-lg"></i>
+            </button>
+        </form>
+        <form method="POST" action="../process/reservasi_process.php" class="d-inline"
+              onsubmit="return confirm('Batalkan reservasi ini? Jadwal akan kembali tersedia.');">
+            <input type="hidden" name="aksi" value="batalkan">
+            <input type="hidden" name="id" value="<?= (int)$baris['id'] ?>">
+            <button type="submit" class="btn btn-sm btn-outline-danger" title="Batalkan">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </form>
+    <?php endif; ?>
+</td>
                     </tr>
                 <?php endforeach; ?>
                 <?php if (empty($daftar_reservasi)): ?>
