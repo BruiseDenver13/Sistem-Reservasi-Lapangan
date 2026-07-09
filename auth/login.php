@@ -56,7 +56,7 @@ if (isset($_GET['pesan']) && $_GET['pesan'] === 'session_habis') {
     <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
         <div class="card shadow-sm" style="width: 100%; max-width: 400px;">
             <div class="card-body p-4">
-                <h4 class="text-center mb-4">⚽ Login Admin</h4>
+                <h4 class="text-center mb-4"> Login Admin</h4>
  
                 <?php if ($pesan_error !== ''): ?>
                     <div class="alert alert-danger py-2">
