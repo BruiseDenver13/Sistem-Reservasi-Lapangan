@@ -65,7 +65,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     </form>
 
     <?php if ($id_lapangan_dipilih > 0 && !empty($daftar_slot)): ?>
-        <form method="POST" action="../process/reservasi_publik_process.php">
+        <form method="POST" action="../process/reservasi_public_process.php">
             <div class="mb-3">
                 <label class="form-label">Pilih Jam</label>
                 <select name="id_jadwal" class="form-select" required>
