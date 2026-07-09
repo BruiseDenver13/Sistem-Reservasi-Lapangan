@@ -105,7 +105,7 @@ class Reservasi
         return $berhasil;
     }
 
-    public function tambahPublik(int $idJadwal, string $namaPemesan, string $noHp, float $totalBayar, string $keterangan): bool
+    public function tambahPublik(int $idJadwal, string $namaPemesan, string $noHp, float $totalBayar, string $keterangan): string|false
 {
     $kode = $this->buatKode();
     $stmt = mysqli_prepare($this->koneksi, "
