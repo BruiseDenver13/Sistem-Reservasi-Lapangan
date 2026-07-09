@@ -9,15 +9,15 @@ class Lapangan
         $this->koneksi = $koneksi;
     }
 
-    public function ambilSemua(): array
-    {
-        $hasil = mysqli_query($this->koneksi, "
-            SELECT l.id, l.nama, l.harga_per_jam, l.foto, l.keterangan, l.status,
-                   k.nama AS nama_kategori
-            FROM lapangan l
-            JOIN kategori_lapangan k ON l.id_kategori = k.id
-            ORDER BY l.id DESC
-        ");
+   public function ambilSemua(): array
+{
+    $hasil = mysqli_query($this->koneksi, "
+        SELECT l.id, l.id_kategori, l.nama, l.harga_per_jam, l.foto, l.keterangan, l.status,
+               k.nama AS nama_kategori
+        FROM lapangan l
+        JOIN kategori_lapangan k ON l.id_kategori = k.id
+        ORDER BY l.id DESC
+    ");
         $data = [];
         while ($baris = mysqli_fetch_assoc($hasil)) {
             $data[] = $baris;
